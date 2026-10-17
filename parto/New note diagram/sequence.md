@@ -1,8 +1,8 @@
 ```mermaid
 sequenceDiagram
     autonumber
-    participant browser
-    participant server
+    actor browser
+    actor server
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     Note left of server: A request is made to the server
