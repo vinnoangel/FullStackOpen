@@ -1,20 +1,28 @@
 import { useState } from "react";
 
-const StatisticLine = ({text, value, symbol}) => 
-  <div>{text} {value} {symbol}</div>
+const StatisticLine = ({text, value, symbol}) => {
+  return(
+    <tr>
+      <td>{text}</td>
+      <td>{value} {symbol}</td>
+    </tr>
+  )
+}
 
 const Statistics = (props) => {
   const {good, neutral, bad, total, average, positive} = props
   if (total > 0) {
     return(
-      <div>
-        <StatisticLine text="good" value={good} symbol="" />
-        <StatisticLine text="neutral" value={neutral} symbol="" />
-        <StatisticLine text="bad" value={bad} symbol="" />
-        <StatisticLine text="all" value={total} symbol="" />
-        <StatisticLine text="average" value={average} symbol="" />
-        <StatisticLine text="positive" value={positive} symbol="%" />
-      </div>
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={good} symbol="" />
+          <StatisticLine text="neutral" value={neutral} symbol="" />
+          <StatisticLine text="bad" value={bad} symbol="" />
+          <StatisticLine text="all" value={total} symbol="" />
+          <StatisticLine text="average" value={average} symbol="" />
+          <StatisticLine text="positive" value={positive} symbol="%" />
+        </tbody>
+      </table>
     )
   } else {
     return(
@@ -42,7 +50,7 @@ const App = () => {
     setGood(updatedGood)
     setTotal(updatedTotal)
     setAverage(((updatedGood * goodAverageScore) + (bad * badAverageScore))/updatedTotal)
-    setPositive(updatedGood/updatedTotal)
+    setPositive((updatedGood/updatedTotal)*100)
   }
   const handleNeutralFeedback = () => {
     const updatedNeutral = neutral + 1
@@ -50,7 +58,7 @@ const App = () => {
     setNeutral(updatedNeutral)
     setTotal(updatedTotal)
     setAverage(((good * goodAverageScore) + (bad * badAverageScore))/updatedTotal)
-    setPositive(good/updatedTotal)
+    setPositive((good/updatedTotal)*100)
   }
   const handleBadFeedback = () => {
     const updatedBad = bad + 1
@@ -58,7 +66,7 @@ const App = () => {
     setBad(updatedBad)
     setTotal(updatedTotal)
     setAverage(((good * goodAverageScore) + (updatedBad * badAverageScore))/updatedTotal)
-    setPositive(good/updatedTotal)
+    setPositive((good/updatedTotal)*100)
   }
 
   return(
