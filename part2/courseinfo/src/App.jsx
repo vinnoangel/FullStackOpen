@@ -19,7 +19,6 @@ const Content = ({parts}) => {
 }
 
 const Course = ({course}) => {
-  console.log(course.name)
   return(
     <div>
       <Header name={course.name} />
