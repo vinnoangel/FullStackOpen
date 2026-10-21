@@ -3,7 +3,6 @@ const Header = ({name}) => <h1>{name}</h1>
 const Part = ({partName, exercises}) => <p>{partName} {exercises}</p>
 
 const Content = ({parts}) => {
-  console.log(parts)
   return (
     <div>
       {parts.map(part => 
@@ -14,6 +13,7 @@ const Content = ({parts}) => {
           />
         )
       }
+      <h4>total of {parts.reduce((total,part) => total = total + part.exercises, 0)} exercises</h4>
     </div>
   )
 }
