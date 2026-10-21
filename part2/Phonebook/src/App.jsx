@@ -10,6 +10,10 @@ const App = () => {
 
   const addPhonebook = (event) => {
     event.preventDefault()
+    if (persons.some((gfg) => gfg.name === newName)) {
+      alert(`${newName} is already added to the phonebook`)
+      return
+    }
     const newPhonebook = {
       name: newName
     }
