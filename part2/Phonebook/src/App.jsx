@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 import PersonForm  from './components/PersonForm '
 import Persons from './components/Persons'
 import Filter from './components/Filter'
@@ -11,14 +11,13 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    personService
+      .getAll()
       .then(response => {
         console.log('Promised fulfilled')
-        setPersons(response.data)
+        setPersons(response)
       })
   }, [])
-  console.log('retrieved ', persons.length, ' persons')
 
   const handleNameChange = (event) => setNewName(event.target.value)
   const handleNumberChange = (event) => setNewNumber(event.target.value)
@@ -39,11 +38,10 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    axios
-      .post('http://localhost:3001/persons', newPhonebook)
+    personService
+      .create(newPhonebook)
       .then(response => {
-        console.log(response.data)
-        setPersons(persons.concat(response.data))
+        setPersons(persons.concat(response))
         setNewName('')
         setNewNumber('')
       })
