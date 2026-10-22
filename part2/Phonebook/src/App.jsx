@@ -33,24 +33,43 @@ const App = () => {
 
   const addPhonebook = (event) => {
     event.preventDefault()
-    if (persons.some((gfg) => gfg.name === newName)) {
-      alert(`${newName} is already added to the phonebook`)
-      return
-    }
+
     const newPhonebook = {
       name: newName,
       number: newNumber
     }
-    personService
-      .create(newPhonebook)
-      .then(response => {
-        setPersons(persons.concat(response))
-        setNewName('')
-        setNewNumber('')
-      })
-      .catch(error => {
-        console.log('fail')
-      })
+
+    if (persons.some((person) => person.name === newName)) {
+      const existPerson = persons.find(person => person.name === newName)
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        personService
+          .update(existPerson.id, newPhonebook)
+          .then(updatePerson => {
+            setPersons(persons.map(person => 
+              person.id === updatePerson.id 
+                ? updatePerson : person
+              ))
+            setNewName('')
+            setNewNumber('')
+          })
+          .catch(error => {
+            console.log('fail')
+          })
+      }      
+    } else {
+      personService
+        .create(newPhonebook)
+        .then(response => {
+          setPersons(persons.concat(response))
+          setNewName('')
+          setNewNumber('')
+        })
+        .catch(error => {
+          console.log('fail')
+        })
+    }
+
+    
   }
 
   const handleDelete = (id, name) => {
