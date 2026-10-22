@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import personService from './services/persons'
-import PersonForm  from './components/PersonForm '
+import PersonForm  from './components/PersonForm'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 
@@ -16,6 +16,9 @@ const App = () => {
       .then(response => {
         console.log('Promised fulfilled')
         setPersons(response)
+      })
+      .catch(error => {
+        console.log('fail')
       })
   }, [])
 
@@ -45,6 +48,23 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
+      .catch(error => {
+        console.log('fail')
+      })
+  }
+
+  const handleDelete = (id, name) => {
+    console.log(`Person with ${id} was deleted`)
+    if (window.confirm(`Delete ${name}?`)) {
+      personService
+        .deletePerson(id)
+        .then(() => {
+          setPersons(persons.filter(person => person.id !== id))
+        })
+        .catch(error => {
+          console.log('fail')
+        })
+    }
   }
 
   return (
@@ -60,7 +80,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h3>Numbers</h3>
-      <Persons persons={searchPersonsResult} />
+      <Persons persons={searchPersonsResult} handleDelete={handleDelete} />
     </div>
   )
 }

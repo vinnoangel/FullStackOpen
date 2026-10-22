@@ -26,24 +26,9 @@
       "id": "5"
     },
     {
-      "name": "ewee",
-      "number": "4343434",
-      "id": "q8N7VWVpDXM"
-    },
-    {
-      "name": "weweew",
-      "number": "4344",
-      "id": "zZWUmmo43go"
-    },
-    {
       "name": "Okoro Emeka",
       "number": "0908773737",
       "id": "_3m7vfyHuvQ"
-    },
-    {
-      "name": "Ojo",
-      "number": "2586426",
-      "id": "62UieiGnR8U"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
